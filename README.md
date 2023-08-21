@@ -4,7 +4,7 @@
     conda create -n MicroGPT python=3.9.16
     conda activate MicroGPT
     ```
-2. 获取本仓库地库
+2. 获取本仓库
     ```bash
     git clone https://github.com/yxq321/MicroGPT.git
     cd MicroGPT
