@@ -1,3 +1,5 @@
+
+
 # 安装运行
 1. (推荐)安装并配置[conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html)
     ```bash
@@ -15,7 +17,7 @@
     ```
 4. 下载大模型bin文件(可以从网上查找Llama2的bin文件), 以下是举例
     ```bash
-    mkdir -p models/ && cd models/
+    mkdir models/ && cd models/
     wget https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML/resolve/main/llama-2-7b-chat.ggmlv3.q4_0.bin 
     ```
 5. 配置大模型bin文件的路径
@@ -34,3 +36,11 @@
 - 是否支持mps / ngpu_layer
 - 差一个requirements.txt
 - 知识库问答不支持history
+
+# 运行界面
+
+## 机器人聊天模式
+![av](res/chatbot.png)
+
+## 知识库模式
+![avatar](res/kb.png)

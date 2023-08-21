@@ -12,4 +12,4 @@ data_file = "data/file.txt"
 model_file = "../llama.cpp/models/Llama2-Chinese-7b-Chat-ggml-model-q4_0.bin"
 
 # 如果是苹果 M1(*) / M2(*) 等CPU，请配置 True
-is_apple_silicon = False
+is_apple_silicon = True

@@ -25,7 +25,7 @@ with st.sidebar:
             disabled=True,
         )
         st.info(body="e.g: How many kids does Hongxing Shu have?")
-        clear_chat_history()
+        # clear_chat_history()
 
 # Store LLM generated responses
 if "messages" not in st.session_state.keys():
