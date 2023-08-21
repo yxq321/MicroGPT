@@ -5,7 +5,7 @@
 # 存放数据信息的文件，只验证过:
 # 1. 英文
 # 2. 文本文件
-data_file = "temp/file.txt"
+data_file = "data/file.txt"
 
 # 可以从huggingface下载模型文件
 # 例如: https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML (找到里面的 Files and Versions)

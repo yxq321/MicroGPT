@@ -84,5 +84,5 @@ def ask_llm(prompt="Hello.", string_dialogue=""):
 
 
 if __name__ == "__main__":
-    p = "what does Shuren Bi like?"
+    p = "what does Hongxing Shu like?"
     print(kb_llm(p))

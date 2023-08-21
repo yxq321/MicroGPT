@@ -2,11 +2,6 @@ import streamlit as st
 from llm import kb_llm, ask_llm
 from settings import data_file, model_file
 
-"""
-run it by:
-streamlit run streamlit_app.py
-"""
-
 # App title
 st.set_page_config(page_title="My local Chatbot")
 
@@ -22,7 +17,7 @@ with st.sidebar:
             value=file_content,
             disabled=True,
         )
-        st.info(body="e.g: How many kids does Shuren Bi have?")
+        st.info(body="e.g: How many kids does Hongxing Shu have?")
 
 # Store LLM generated responses
 if "messages" not in st.session_state.keys():
@@ -48,8 +43,8 @@ st.sidebar.divider()
 
 st.sidebar.markdown(
     f"""### 注意
-* 中文支持还不太好.
-* 暂不支持流输出(不支持一个字一个字出)
+* 中文支持不太好
+* 暂不支持流输出(不支持一个字一个字出)(待开发)
 ### 配置
 * 模型文件: {model_file}
 * 知识库文件: {data_file}
