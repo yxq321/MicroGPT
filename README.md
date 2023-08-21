@@ -1,5 +1,5 @@
 # 安装运行
-1. (推荐)安装并配置conda
+1. (推荐)安装并配置[conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html)
     ```bash
     conda create -n MicroGPT
     conda activate MicroGPT
@@ -20,7 +20,7 @@
     ```
 5. 配置大模型bin文件的路径
     ```bash
-    vi setting.py # 根据实际路径，修改 model_file
+    vi setting.py # 根据实际路径，修改 model_file 变量
     ```
 6. 运行程序
     ```bash
@@ -31,3 +31,6 @@
 - 流式输出
 - Embedding模型下载
 - 支持中文
+- 是否支持mps / ngpu_layer
+- 差一个requirements.txt
+- 知识库问答不支持history

@@ -8,6 +8,13 @@ st.set_page_config(page_title="My local Chatbot")
 with open(data_file, "r") as file:
     file_content = file.read()
 
+
+def clear_chat_history():
+    st.session_state.messages = [
+        {"role": "assistant", "content": "How may I assist you today?"}
+    ]
+
+
 with st.sidebar:
     st.title("My local Chatbot")
     run_model = st.radio("请选择运行的模式:", ["机器人聊天", "知识库"])
@@ -18,6 +25,7 @@ with st.sidebar:
             disabled=True,
         )
         st.info(body="e.g: How many kids does Hongxing Shu have?")
+        clear_chat_history()
 
 # Store LLM generated responses
 if "messages" not in st.session_state.keys():
@@ -29,12 +37,6 @@ if "messages" not in st.session_state.keys():
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.write(message["content"])
-
-
-def clear_chat_history():
-    st.session_state.messages = [
-        {"role": "assistant", "content": "How may I assist you today?"}
-    ]
 
 
 st.sidebar.button("Clear Chat History", on_click=clear_chat_history)
