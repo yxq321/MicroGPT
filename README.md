@@ -1,4 +1,10 @@
+# 运行界面
 
+## 机器人聊天模式
+![av](res/chatbot.png)
+
+## 知识库模式
+![avatar](res/kb.png)
 
 # 安装运行
 1. (推荐)安装并配置[conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html)
@@ -37,10 +43,8 @@
 - 差一个requirements.txt
 - 知识库问答不支持history
 
-# 运行界面
+# 联系方式
 
-## 机器人聊天模式
-![av](res/chatbot.png)
-
-## 知识库模式
-![avatar](res/kb.png)
+欢迎报bug
+- 微信: xianqingy
+- 邮件: yxq321(at)gmail.com
