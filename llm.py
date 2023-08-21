@@ -8,21 +8,21 @@ from langchain.document_loaders import TextLoader
 # from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Chroma
 
-from settings import model_file, data_file
+from settings import model_file, data_file, is_apple_silicon
 
 from langchain.embeddings import HuggingFaceInstructEmbeddings
 
 EMBEDDING_MODEL_NAME = "all-MiniLM-L6-v2"
 embeddings = HuggingFaceInstructEmbeddings(  # embeddings = LlamaCppEmbeddings(model_path="../llama.cpp/models/llama-2-7b-chat.ggmlv3.q4_0.bin")
     model_name=EMBEDDING_MODEL_NAME,
-    model_kwargs={"device": "mps"},
+    model_kwargs={"device": "mps" if is_apple_silicon else "cpu"},
 )
 
 llm = LlamaCpp(
     model_path=model_file,
     n_ctx=512,
     n_batch=128,
-    n_gpu_layers=1,
+    n_gpu_layers=1 if is_apple_silicon else 0,
 )
 
 """另一种方式

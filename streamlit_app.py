@@ -1,6 +1,6 @@
 import streamlit as st
 from llm import kb_llm, ask_llm
-from settings import data_file, model_file
+from settings import data_file, model_file, is_apple_silicon
 
 # App title
 st.set_page_config(page_title="My local Chatbot")

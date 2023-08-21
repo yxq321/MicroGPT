@@ -1,7 +1,7 @@
 # 安装运行
 1. (推荐)安装并配置[conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html)
     ```bash
-    conda create -n MicroGPT
+    conda create -n MicroGPT python=3.9.16
     conda activate MicroGPT
     ```
 2. 获取本仓库地库
