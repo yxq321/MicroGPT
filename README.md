@@ -33,18 +33,24 @@
 6. 运行程序
     ```bash
     streamlit run streamlit_app.py
+    # 或指定端口
+    # streamlit run streamlit_app.py --server.port=8088 
     ```
+7. (可选)配置supervisor自启动
+   ```bash
+   sudo cp supervisor_microgpt.conf /etc/supervisor/conf.d/microgpt.conf
+   sudo vi /etc/supervisor/conf.d/microgpt.conf # 根据实际路径作修改
+   systemctl restart supervisor
+   ```
 
 # TODO LIST
 - 流式输出
 - Embedding模型下载
 - 支持中文
 - 是否支持mps / ngpu_layer
-- 差一个requirements.txt
 - 知识库问答不支持history
 
 # 联系方式
 
 欢迎报bug
-- 微信: xianqingy
 - 邮件: yxq321(at)gmail.com
