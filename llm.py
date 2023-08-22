@@ -12,6 +12,7 @@ from settings import model_file, data_file, is_apple_silicon
 
 from langchain.embeddings import HuggingFaceInstructEmbeddings
 
+
 EMBEDDING_MODEL_NAME = "all-MiniLM-L6-v2"
 embeddings = HuggingFaceInstructEmbeddings(  # embeddings = LlamaCppEmbeddings(model_path="../llama.cpp/models/llama-2-7b-chat.ggmlv3.q4_0.bin")
     model_name=EMBEDDING_MODEL_NAME,

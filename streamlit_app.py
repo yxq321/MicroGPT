@@ -1,9 +1,21 @@
 import streamlit as st
-from llm import kb_llm, ask_llm
+import os
+
 from settings import data_file, model_file, is_apple_silicon
+
+if not os.path.isfile(model_file):
+    st.error(f"ERROR: 模型文件: `{model_file}` 不存在，请从网上下载.")
+    print(
+        f"ERROR: model file: `{model_file}` does NOT exist, please download it from internet (like huggingface)."
+    )
+    st.stop()
+
+
+from llm import kb_llm, ask_llm
 
 # App title
 st.set_page_config(page_title="My local Chatbot")
+
 
 with open(data_file, "r") as file:
     file_content = file.read()
