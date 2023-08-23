@@ -13,6 +13,21 @@ if not os.path.isfile(model_file):
 
 from llm import kb_llm, ask_llm
 
+from langchain.callbacks.base import BaseCallbackHandler  # 实现流式输出
+
+
+class StreamHandler(BaseCallbackHandler):
+    def __init__(self, container, initial_text=""):
+        self.container = container
+        self.text = initial_text
+
+    def on_llm_new_token(self, token: str, **kwargs) -> None:
+        # "/" is a marker to show difference
+        # you don't need it
+        self.text += token
+        self.container.markdown(self.text)
+
+
 # App title
 st.set_page_config(page_title="My local Chatbot")
 
@@ -38,6 +53,17 @@ with st.sidebar:
         )
         st.info(body="e.g: How many kids does Hongxing Shu have?")
         # clear_chat_history()
+    st.button("Clear Chat History", on_click=clear_chat_history)
+    st.divider()
+    st.markdown(
+        f"""### 注意
+* 中文支持不太好
+* 暂不支持流输出(不支持一个字一个字出)(待开发)
+### 配置
+* 模型文件: `{model_file}`
+* 知识库文件: `{data_file}`
+"""
+    )
 
 # Store LLM generated responses
 if "messages" not in st.session_state.keys():
@@ -45,25 +71,22 @@ if "messages" not in st.session_state.keys():
         {"role": "assistant", "content": "How may I assist you today?"}
     ]
 
+
 # Display or clear chat messages
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.write(message["content"])
 
 
-st.sidebar.button("Clear Chat History", on_click=clear_chat_history)
+if prompt := st.chat_input():
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    with st.chat_message("user"):
+        st.write(prompt)
 
-st.sidebar.divider()
-
-st.sidebar.markdown(
-    f"""### 注意
-* 中文支持不太好
-* 暂不支持流输出(不支持一个字一个字出)(待开发)
-### 配置
-* 模型文件: {model_file}
-* 知识库文件: {data_file}
-"""
-)
+if st.session_state.messages[-1]["role"] != "assistant":
+    with st.chat_message("assistant"):
+        chat_box = st.empty()
+    stream_handler = StreamHandler(chat_box)
 
 
 # Refactored from https://github.com/a16z-infra/llama2-chatbot
@@ -77,25 +100,17 @@ def generate_llama2_response(prompt_input):
     if run_model == "知识库":
         output = kb_llm(prompt_input)
     else:
-        output = ask_llm(prompt=prompt_input, string_dialogue=string_dialogue)
+        output = ask_llm(
+            stream_handler, prompt=prompt_input, string_dialogue=string_dialogue
+        )
+        # output = ask_llm(prompt=prompt_input, string_dialogue=string_dialogue)
     return output
 
 
-if prompt := st.chat_input():
-    st.session_state.messages.append({"role": "user", "content": prompt})
-    with st.chat_message("user"):
-        st.write(prompt)
-
 # Generate a new response if last message is not from assistant
 if st.session_state.messages[-1]["role"] != "assistant":
-    with st.chat_message("assistant"):
-        with st.spinner("Thinking..."):
-            response = generate_llama2_response(prompt)
-            placeholder = st.empty()
-            full_response = ""
-            for item in response:
-                full_response += item
-                placeholder.markdown(full_response)
-            placeholder.markdown(full_response)
+    with st.spinner("Generating..."):
+        full_response = generate_llama2_response(prompt)
     message = {"role": "assistant", "content": full_response}
     st.session_state.messages.append(message)
+    st.experimental_rerun()  # 重绘

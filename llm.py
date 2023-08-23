@@ -24,6 +24,7 @@ llm = LlamaCpp(
     n_ctx=512,
     n_batch=128,
     n_gpu_layers=1 if is_apple_silicon else 0,
+    streaming=True,
 )
 
 """另一种方式
@@ -64,12 +65,19 @@ def kb_llm(p):
     prompt = f"{prompt_tpl.format(context=context, question=p)}"
     print(prompt)
 
-    query_llm = LLMChain(llm=llm, prompt=prompt_tpl)
+    query_llm = LLMChain(
+        llm=llm,
+        prompt=prompt_tpl,
+    )
     response = query_llm.run({"context": context, "question": p})
     return response
 
 
-def ask_llm(prompt="Hello.", string_dialogue=""):
+def ask_llm(
+    stream_handler,
+    prompt="Hello.",
+    string_dialogue="",
+):
     """
     单纯机器人问答
     """
@@ -78,7 +86,14 @@ def ask_llm(prompt="Hello.", string_dialogue=""):
     msg += prompt
     msg += "\n\nAssistant:"
     print(f"prompt: {msg}")
-    response = llm(msg, max_tokens=-1, echo=False, temperature=0.1, top_p=0.9)
+    response = llm(
+        msg,
+        max_tokens=-1,
+        echo=False,
+        temperature=0.1,
+        top_p=0.9,
+        callbacks=[stream_handler],
+    )
     print(f"output: {response}")
     # return output["choices"][0]["text"] # no langchain
     return response  # with langchain
