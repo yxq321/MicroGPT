@@ -127,3 +127,4 @@ watchfiles==0.19.0
 websockets==11.0.3
 yarl==1.9.2
 zipp==3.16.2
+chatglm-cpp==0.2.5

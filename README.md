@@ -1,4 +1,5 @@
 # 最近更新
+- 支持ChatGLM(8.24)
 - 机器人模式支持流式输出(8.23)
 
 # 微型GPT | MicroGPT
@@ -6,10 +7,10 @@
 For English version, please check [here](README_EN.md).
 
 ## 运行界面
-- 机器人聊天模式
+- Llama-Chatbot模式
     ![av](res/chatbot.png)
 
-- 知识库模式
+- Llama-KB模式
     ![avatar](res/kb.png)
 
 # 安装运行
@@ -51,8 +52,8 @@ For English version, please check [here](README_EN.md).
    ```
 
 # TODO LIST
-- 知识库模式不支持流式输出(ongoing)
-- 知识库模式不支持history
+- Llama-KB模式不支持流式输出(ongoing)
+- Llama-KB模式不支持history
 - Embedding模型下载
 
 # 联系方式

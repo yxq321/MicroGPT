@@ -21,7 +21,7 @@ embeddings = HuggingFaceInstructEmbeddings(  # embeddings = LlamaCppEmbeddings(m
 
 llm = LlamaCpp(
     model_path=model_file,
-    n_ctx=512,
+    n_ctx=2048,
     n_batch=128,
     n_gpu_layers=1 if is_apple_silicon else 0,
     streaming=True,
@@ -55,9 +55,9 @@ prompt_tpl = PromptTemplate(
 )
 
 
-def kb_llm(p):
+def kb_llm(p: str) -> str:
     """
-    知识库问答
+    Llama-KB问答
     """
     similar_doc = db.similarity_search(p, k=1)
     context = similar_doc[0].page_content
@@ -75,9 +75,9 @@ def kb_llm(p):
 
 def ask_llm(
     stream_handler,
-    prompt="Hello.",
-    string_dialogue="",
-):
+    prompt: str = "Hello.",
+    string_dialogue: str = "",
+) -> str:
     """
     单纯机器人问答
     """
