@@ -16,7 +16,7 @@ For English version, please check [here](README_EN.md).
 # 安装运行
 1. (推荐)安装并配置[conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html)
     ```bash
-    conda create -n MicroGPT python=3.9.16
+    conda create -n MicroGPT python=3.11
     conda activate MicroGPT
     ```
 2. 获取本仓库
