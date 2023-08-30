@@ -32,7 +32,7 @@ For English version, please check [here](README_EN.md).
     1. 下载大模型bin文件(可以从网上查找Llama2的bin文件), 以下是举例
         ```bash
         mkdir models/ && cd models/
-        wget https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML/resolve/main/llama-2-7b-chat.ggmlv3.q4_0.bin 
+        wget https://huggingface.co/rozek/LLaMA-2-7B-32K_GGUF/resolve/main/LLaMA-2-7B-32K-Q4_0.gguf
         ```
     2. 配置大模型bin文件的路径
         ```bash

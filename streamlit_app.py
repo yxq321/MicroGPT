@@ -1,7 +1,7 @@
 import streamlit as st
 import os
 
-from settings import data_file, model_file, is_apple_silicon
+from settings import data_file, model_file, is_apple_silicon, chatglm_model_file
 
 if not os.path.isfile(model_file):
     st.error(f"ERROR: 模型文件: `{model_file}` 不存在，请从网上下载.")
@@ -42,13 +42,29 @@ def clear_chat_history():
     ]
 
 
-notice_msg = f"""### 注意
+show_msg = {
+    "Llama-Chatbot": f"""### 注意
 * 中文支持不太好
-* KB不支持流输出(待开发)
 ### 配置
 * 模型文件: `{model_file}`
 * Llama-KB文件: `{data_file}`
-"""
+* Apple Silicon: `{is_apple_silicon}`
+""",
+    "Llama-KB": f"""### 注意
+* 中文支持不太好
+* 不支持流输出(待开发)
+### 配置
+* 模型文件: `{model_file}`
+* Llama-KB文件: `{data_file}`
+* Apple Silicon: `{is_apple_silicon}`
+""",
+    "ChatGLM-Chatbot": f"""### 注意
+* 提问时页面可能有卡顿
+### 配置
+* 模型文件: `{chatglm_model_file}`
+* Apple Silicon: `{is_apple_silicon}`
+""",
+}
 
 with st.sidebar:
     st.title("My local Chatbot")
@@ -70,7 +86,7 @@ with st.sidebar:
         # clear_chat_history()
     st.button("Clear Chat History", on_click=clear_chat_history)
     st.divider()
-    st.markdown(notice_msg)
+    st.markdown(show_msg[run_model])
 
 # Store LLM generated responses
 if "messages" not in st.session_state.keys():
