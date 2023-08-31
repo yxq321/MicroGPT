@@ -3,10 +3,10 @@ import os
 
 from settings import data_file, model_file, is_apple_silicon, chatglm_model_file
 
-if not os.path.isfile(model_file):
-    st.error(f"ERROR: 模型文件: `{model_file}` 不存在，请从网上下载.")
+if not os.path.isfile(model_file) or not os.path.isfile(chatglm_model_file):
+    st.error(f"ERROR: 模型文件: `{model_file}`或`{chatglm_model_file}` 不存在，请从网上下载.")
     print(
-        f"ERROR: model file: `{model_file}` does NOT exist, please download it from internet (like huggingface)."
+        f"ERROR: model file: `{model_file}` or `{chatglm_model_file}` does NOT exist, please download it from internet (like huggingface)."
     )
     st.stop()
 
@@ -19,6 +19,10 @@ from langchain.callbacks.base import BaseCallbackHandler  # 实现流式输出
 
 
 class StreamHandler(BaseCallbackHandler):
+    """
+    实现流式输出
+    """
+
     def __init__(self, container, initial_text=""):
         self.container = container
         self.text = initial_text
@@ -29,7 +33,7 @@ class StreamHandler(BaseCallbackHandler):
 
 
 # App title
-st.set_page_config(page_title="My local Chatbot")
+st.set_page_config(page_title="MicroGPT")
 
 
 with open(data_file, "r") as file:
@@ -42,7 +46,7 @@ def clear_chat_history():
     ]
 
 
-show_msg = {
+show_msg = {  # 定义模式，以及提示词
     "Llama-Chatbot": f"""### 注意
 * 中文支持不太好
 ### 配置
@@ -67,14 +71,10 @@ show_msg = {
 }
 
 with st.sidebar:
-    st.title("My local Chatbot")
+    st.title("MicroGPT")
     run_model = st.radio(
         "请选择运行的模式:",
-        [
-            "Llama-Chatbot",
-            "Llama-KB",
-            "ChatGLM-Chatbot",
-        ],
+        show_msg.keys(),
     )
     if run_model == "Llama-KB":
         st.text_area(
@@ -84,7 +84,7 @@ with st.sidebar:
         )
         st.info(body="e.g: How many kids does Hongxing Shu have?")
         # clear_chat_history()
-    st.button("Clear Chat History", on_click=clear_chat_history)
+    st.button("清除聊天纪录", on_click=clear_chat_history)
     st.divider()
     st.markdown(show_msg[run_model])
 
