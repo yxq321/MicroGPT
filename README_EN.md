@@ -12,7 +12,7 @@
 # Installation
 1. (recommend)Firstly please install [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html), then create Python enviorment.
     ```bash
-    conda create -n MicroGPT python=3.9.16
+    conda create -n MicroGPT python=3.11
     conda activate MicroGPT
     ```
 2. Clone this git repos:
@@ -25,11 +25,7 @@
     pip install -r requirements.txt
     ```
 4. Download and configure LLM model file.
-    1. Download Llama2 bin file (mostly you can get it from Huggingface), for example:
-        ```bash
-        mkdir models/ && cd models/
-        wget https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML/resolve/main/llama-2-7b-chat.ggmlv3.q4_0.bin 
-        ```
+    1. Download Llama2 bin file(gguf format) (mostly you can get it from Huggingface).
     2. Configure the path of your llama2 bin file.
         ```bash
         vi setting.py # change model_file based on your file location.
@@ -49,6 +45,6 @@
 
 # Contacts
 
-Welcome to report any bug:
+Welcomed to report any bug:
 
 - Email: yxq321(at)gmail.com
