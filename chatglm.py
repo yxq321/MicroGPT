@@ -1,3 +1,7 @@
+"""
+chatglm大模型
+"""
+
 import chatglm_cpp
 
 from settings import chatglm_model_file
@@ -18,8 +22,16 @@ generation_kwargs = dict(
 
 def chatglm_llm(prompt: Union[str, list]):
     """
-    根据提示词生成内容
-    返回值: 是个generator对象
+    根据提示词生成内容.
+
+    Examples:
+        >>> chatglm_llm("请介绍一下三国的刘备。")
+
+    Args:
+        prompt: 聊天纪录
+
+    Returns:
+        generator对象
     """
     if isinstance(prompt, list):
         history = get_history(prompt)
@@ -37,8 +49,17 @@ def chatglm_llm(prompt: Union[str, list]):
 
 
 def get_history(prompt: list) -> list:
-    """
-    拼装成chatGLM的格式
+    """拼装成chatGLM格的聊天纪录
+
+    Examples:
+        >>> get_history([{"content": "hello"}, {"content": "world"}])
+        >>> ["world",]
+
+    Args:
+        prompt: 列表，聊天的历史纪录.
+
+    Returns:
+        content值的聊天纪录.
     """
     history = []
     for item in prompt[1:]:  #

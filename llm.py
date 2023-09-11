@@ -1,3 +1,11 @@
+"""
+本文件基于Llama大模型，主要有两个函数:
+
+- 聊天函数
+
+- 知识库函数
+"""
+
 from langchain.llms import LlamaCpp
 
 # from langchain.embeddings import LlamaCppEmbeddings
@@ -27,15 +35,14 @@ llm = LlamaCpp(
     streaming=True,
 )
 
-"""另一种方式
-from llama_cpp import Llama
-llm = Llama(
-    model_path=model_file,
-    n_ctx=512,
-    n_batch=128,
-    n_gpu_layers=1,
-)
-"""
+# 另一种方式
+# from llama_cpp import Llama
+# llm = Llama(
+#    model_path=model_file,
+#    n_ctx=512,
+#    n_batch=128,
+#    n_gpu_layers=1,
+# )
 
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
@@ -58,6 +65,15 @@ prompt_tpl = PromptTemplate(
 def kb_llm(p: str) -> str:
     """
     Llama-KB问答
+
+    Examples:
+        >>> kb_llm("Who is hongxing")
+
+    Args:
+        p: 提示词.
+
+    Returns:
+        大模型生成的回复(结合KB库)
     """
     similar_doc = db.similarity_search(p, k=1)
     context = similar_doc[0].page_content
@@ -79,7 +95,15 @@ def ask_llm(
     string_dialogue: str = "",
 ) -> str:
     """
-    单纯机器人问答
+    单纯机器人问答.
+
+    Args:
+        stream_heandler: 流输出对象.
+        prompt: 提示词.
+        string)dialogue: 历史纪录.
+
+    Returns:
+        生成的LLM回答.
     """
     msg = "You are a helpful assistant. You do not respond as 'User' or pretend to be 'User'. You only respond once as 'Assistant'.Assistant: How may I assist you today?\n\n"
     msg += string_dialogue

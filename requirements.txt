@@ -8,3 +8,6 @@ sentence-transformers==2.2.2
 streamlit==1.26.0
 torch==2.0.1
 tqdm==4.66.1
+mkdocs
+mkdocstrings[python]
+mkdocs-material

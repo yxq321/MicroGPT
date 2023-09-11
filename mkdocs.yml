@@ -1,0 +1,14 @@
+# run it in root Repos dir:
+# mkdocs serve
+
+site_name: MicroGPT Docs
+theme:
+  name: "material"
+
+plugins:
+  - mkdocstrings
+
+nav:
+  - index.md
+  - reference.md
+  - about.md
